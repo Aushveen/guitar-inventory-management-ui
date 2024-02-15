@@ -4,8 +4,12 @@
     <title>Search Guitar</title>
 </head>
 <body>
-    <h2>Search Guitar</h2>
-    Serial Number: <input type="text" id="searchSerialNumber"><br>
+    <h2>Search Guitars</h2>
+    Builder: <input type="text" id="searchBuilder"><br>
+    Model: <input type="text" id="searchModel"><br>
+    Type: <input type="text" id="searchType"><br>
+    Back Wood: <input type="text" id="searchBackWood"><br>
+    Top Wood: <input type="text" id="searchTopWood"><br>
     <button onclick="searchGuitar()">Search</button>
 
     <table id="resultsTable" border="1">
@@ -30,20 +34,30 @@
         ];
 
         function searchGuitar() {
-            const searchSerial = document.getElementById('searchSerialNumber').value;
+            const builder = document.getElementById('searchBuilder').value.toLowerCase();
+            const model = document.getElementById('searchModel').value.toLowerCase();
+            const type = document.getElementById('searchType').value.toLowerCase();
+            const backWood = document.getElementById('searchBackWood').value.toLowerCase();
+            const topWood = document.getElementById('searchTopWood').value.toLowerCase();
+
             const resultsTable = document.getElementById('resultsTable');
+            resultsTable.innerHTML = resultsTable.rows[0].outerHTML; // Clear previous search results
 
-            // Clear previous search results, keeping the header row
-            resultsTable.innerHTML = resultsTable.rows[0].outerHTML;
+            const filteredGuitars = guitars.filter(guitar =>
+                (builder === "" || guitar.builder.toLowerCase() === builder) &&
+                (model === "" || guitar.model.toLowerCase() === model) &&
+                (type === "" || guitar.type.toLowerCase() === type) &&
+                (backWood === "" || guitar.backWood.toLowerCase() === backWood) &&
+                (topWood === "" || guitar.topWood.toLowerCase() === topWood)
+            ).slice(0, 10); // Limit to 10 results
 
-            guitars.filter(guitar => guitar.serialNumber.includes(searchSerial))
-                .forEach(guitar => {
-                    const row = resultsTable.insertRow(-1);
-                    Object.values(guitar).forEach(text => {
-                        const cell = row.insertCell(-1);
-                        cell.textContent = text;
-                    });
+            filteredGuitars.forEach(guitar => {
+                const row = resultsTable.insertRow(-1);
+                Object.values(guitar).forEach(text => {
+                    const cell = row.insertCell(-1);
+                    cell.textContent = text;
                 });
+            });
         }
     </script>
 </body>
