@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guitar Management Service</title>
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f3f3f3;
+        }
+        .header .title {
+            font-size: 24px;
+        }
+        .header .navigation {
+            display: flex;
+            gap: 10px;
+        }
+        .navigation button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Guitar Management Service</div>
+        <div class="navigation">
+            <button onclick="window.location.href='addGuitar.html'">Add Guitar</button>
+            <button onclick="window.location.href='searchGuitar.html'">Search Guitar</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Welcome to the Guitar Management Service</h2>
+        <p>Use the navigation buttons on the top right to add a new guitar or search through the existing inventory.</p>
+    </div>
+</body>
+</html>

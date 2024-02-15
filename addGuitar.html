@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Guitar</title>
+</head>
+<body>
+    <h2>Add Guitar</h2>
+    <form id="addGuitarForm">
+        Serial Number: <input type="text" id="serialNumber" required><br>
+        Price: <input type="number" id="price" required><br>
+        Builder: <input type="text" id="builder" required><br>
+        Model: <input type="text" id="model" required><br>
+        Type: <input type="text" id="type" required><br>
+        Back Wood: <input type="text" id="backWood" required><br>
+        Top Wood: <input type="text" id="topWood" required><br>
+        <button type="button" onclick="addGuitar()">Add Guitar</button>
+    </form>
+
+    <script>
+        function addGuitar() {
+            const guitar = {
+                serialNumber: document.getElementById('serialNumber').value,
+                price: document.getElementById('price').value,
+                builder: document.getElementById('builder').value,
+                model: document.getElementById('model').value,
+                type: document.getElementById('type').value,
+                backWood: document.getElementById('backWood').value,
+                topWood: document.getElementById('topWood').value,
+            };
+
+            alert(JSON.stringify(guitar, null, 2));
+        }
+    </script>
+</body>
+</html>

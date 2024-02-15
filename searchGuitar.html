@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Guitar</title>
+</head>
+<body>
+    <h2>Search Guitar</h2>
+    Serial Number: <input type="text" id="searchSerialNumber"><br>
+    <button onclick="searchGuitar()">Search</button>
+
+    <table id="resultsTable" border="1">
+        <tr>
+            <th>Serial Number</th>
+            <th>Price</th>
+            <th>Builder</th>
+            <th>Model</th>
+            <th>Type</th>
+            <th>Back Wood</th>
+            <th>Top Wood</th>
+        </tr>
+    </table>
+
+    <script>
+        const guitars = [
+            { serialNumber: "SN1", price: 1000, builder: "Fender", model: "Model1", type: "Electric", backWood: "Maple", topWood: "Maple" },
+            { serialNumber: "SN2", price: 1500, builder: "Martin", model: "Model2", type: "Acoustic", backWood: "Mahogany", topWood: "Cedar" },
+            { serialNumber: "SN3", price: 1200, builder: "Gibson", model: "Model3", type: "Electric", backWood: "Alder", topWood: "Alder" },
+            { serialNumber: "SN4", price: 1100, builder: "Yamaha", model: "Model4", type: "Acoustic", backWood: "Rosewood", topWood: "Spruce" },
+            { serialNumber: "SN5", price: 1300, builder: "PRS", model: "Model5", type: "Electric", backWood: "Mahogany", topWood: "Maple" },
+        ];
+
+        function searchGuitar() {
+            const searchSerial = document.getElementById('searchSerialNumber').value;
+            const resultsTable = document.getElementById('resultsTable');
+
+            // Clear previous search results, keeping the header row
+            resultsTable.innerHTML = resultsTable.rows[0].outerHTML;
+
+            guitars.filter(guitar => guitar.serialNumber.includes(searchSerial))
+                .forEach(guitar => {
+                    const row = resultsTable.insertRow(-1);
+                    Object.values(guitar).forEach(text => {
+                        const cell = row.insertCell(-1);
+                        cell.textContent = text;
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
