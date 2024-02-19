@@ -8,15 +8,49 @@
     <form id="addGuitarForm">
         Serial Number: <input type="text" id="serialNumber" required><br>
         Price: <input type="number" id="price" required><br>
-        Builder: <input type="text" id="builder" required><br>
+        Builder: 
+        <select id="builder" required>
+            <option value="FENDER">Fender</option>
+            <option value="MARTIN">Martin</option>
+            <option value="GIBSON">Gibson</option>
+            <option value="COLLINGS">Collings</option>
+            <option value="OLSON">Olson</option>
+            <option value="RYAN">Ryan</option>
+            <option value="PRS">PRS</option>
+            <option value="ANY">Any</option>
+        </select><br>
         Model: <input type="text" id="model" required><br>
-        Type: <input type="text" id="type" required><br>
-        Back Wood: <input type="text" id="backWood" required><br>
-        Top Wood: <input type="text" id="topWood" required><br>
-        <button type="button" onclick="addGuitar()">Add Guitar</button>
+        Type: 
+        <select id="type" required>
+            <option value="ACOUSTIC">Acoustic</option>
+            <option value="ELECTRIC">Electric</option>
+        </select><br>
+        Back Wood: 
+        <select id="backWood" required>
+            <option value="INDIAN_ROSEWOOD">Indian Rosewood</option>
+            <option value="BRAZILIAN_ROSEWOOD">Brazilian Rosewood</option>
+            <option value="MAHOGANY">Mahogany</option>
+            <option value="MAPLE">Maple</option>
+            <option value="COCOBOLO">Cocobolo</option>
+            <option value="CEDAR">Cedar</option>
+            <option value="ADIRONDACK">Adirondack</option>
+            <option value="ALDER">Alder</option>
+            <option value="SITKA">Sitka</option>
+        </select><br>
+        Top Wood: 
+        <select id="topWood" required>
+            <option value="INDIAN_ROSEWOOD">Indian Rosewood</option>
+            <option value="BRAZILIAN_ROSEWOOD">Brazilian Rosewood</option>
+            <option value="MAHOGANY">Mahogany</option>
+            <option value="MAPLE">Maple</option>
+            <option value="COCOBOLO">Cocobolo</option>
+            <option value="CEDAR">Cedar</option>
+            <option value="ADIRONDACK">Adirondack</option>
+            <option value="ALDER">Alder</option>
+            <option value="SITKA">Sitka</option>
+        </select><br>
     </form>
     <button onclick="window.location.href='index.html'">Back to Home</button>
-
     <script>
         function addGuitar() {
             const guitar = {
