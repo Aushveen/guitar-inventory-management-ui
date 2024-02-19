@@ -53,7 +53,7 @@
     <button type="button" onclick="addGuitar()">Add Guitar</button>
     <button onclick="window.location.href='index.html'">Back to Home</button>
     <script>
-        function addGuitar() {
+        async function addGuitar() {
             const guitar = {
                 serialNumber: document.getElementById('serialNumber').value,
                 price: document.getElementById('price').value,
@@ -63,28 +63,23 @@
                 backWood: document.getElementById('backWood').value,
                 topWood: document.getElementById('topWood').value,
             };
-
-            fetch('http://localhost:8080/add', {
+            let request = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(guitar),
-            })
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .then(data => {
-                console.log('Success:', data);
-                alert('The guitar was added to the system');
-            })
-            .catch((error) => {
-                console.log('Error:', error);
-                alert('Something went wrong. Please try again or contact the customer support team');
-            })
+            };
+            let host = "http://localhost:8080";
+            let message = "";
+            let response = await fetch(host + "/add", request);
+            if(response.status == 200){
+                message = 'The guitar was added to the system'
+            }else{
+                console.log(response);
+                message = 'Something went wrong. Please try again or contact the customer support team'; 
+            }
+            alert(message);
         }
     </script>
 </body>
