@@ -29,7 +29,27 @@
                 topWood: document.getElementById('topWood').value,
             };
 
-            alert(JSON.stringify(guitar, null, 2));
+            fetch('http://localhost:8080/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(guitar),
+            })
+            .then(response => {
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('The guitar was added to the system');
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+                alert('Something went wrong. Please try again or contact the customer support team');
+            })
         }
     </script>
 </body>
