@@ -27,11 +27,11 @@
 
     <script>
         async function fetchGuitars() {
-            const builder = document.getElementById('searchBuilder').value;
+            const builder = document.getElementById('searchBuilder').value.toUpperCase();
             const model = document.getElementById('searchModel').value;
-            const type = document.getElementById('searchType').value;
-            const backWood = document.getElementById('searchBackWood').value;
-            const topWood = document.getElementById('searchTopWood').value;
+            const type = document.getElementById('searchType').value.toUpperCase();
+            const backWood = document.getElementById('searchBackWood').value.toUpperCase();
+            const topWood = document.getElementById('searchTopWood').value.toUpperCase();
 
             // Construct the query string
             const queryParams = new URLSearchParams({
@@ -39,7 +39,7 @@
             });
 
             try {
-                const response = await fetch(`/search?${queryParams}`, {
+                const response = await fetch(`http://localhost:8080/search?${queryParams}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
