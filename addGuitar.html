@@ -8,50 +8,15 @@
     <form id="addGuitarForm">
         Serial Number: <input type="text" id="serialNumber" required><br>
         Price: <input type="number" id="price" required><br>
-        Builder: 
-        <select id="builder" required>
-            <option value="FENDER">Fender</option>
-            <option value="MARTIN">Martin</option>
-            <option value="GIBSON">Gibson</option>
-            <option value="COLLINGS">Collings</option>
-            <option value="OLSON">Olson</option>
-            <option value="RYAN">Ryan</option>
-            <option value="PRS">PRS</option>
-            <option value="ANY">Any</option>
-        </select><br>
+        Builder: <input type="text" id="builder" required><br>
         Model: <input type="text" id="model" required><br>
-        Type: 
-        <select id="type" required>
-            <option value="ACOUSTIC">Acoustic</option>
-            <option value="ELECTRIC">Electric</option>
-        </select><br>
-        Back Wood: 
-        <select id="backWood" required>
-            <option value="INDIAN_ROSEWOOD">Indian Rosewood</option>
-            <option value="BRAZILIAN_ROSEWOOD">Brazilian Rosewood</option>
-            <option value="MAHOGANY">Mahogany</option>
-            <option value="MAPLE">Maple</option>
-            <option value="COCOBOLO">Cocobolo</option>
-            <option value="CEDAR">Cedar</option>
-            <option value="ADIRONDACK">Adirondack</option>
-            <option value="ALDER">Alder</option>
-            <option value="SITKA">Sitka</option>
-        </select><br>
-        Top Wood: 
-        <select id="topWood" required>
-            <option value="INDIAN_ROSEWOOD">Indian Rosewood</option>
-            <option value="BRAZILIAN_ROSEWOOD">Brazilian Rosewood</option>
-            <option value="MAHOGANY">Mahogany</option>
-            <option value="MAPLE">Maple</option>
-            <option value="COCOBOLO">Cocobolo</option>
-            <option value="CEDAR">Cedar</option>
-            <option value="ADIRONDACK">Adirondack</option>
-            <option value="ALDER">Alder</option>
-            <option value="SITKA">Sitka</option>
-        </select><br>
+        Type: <input type="text" id="type" required><br>
+        Back Wood: <input type="text" id="backWood" required><br>
+        Top Wood: <input type="text" id="topWood" required><br>
         <button type="button" onclick="addGuitar()">Add Guitar</button>
     </form>
     <button onclick="window.location.href='index.html'">Back to Home</button>
+
     <script>
         function addGuitar() {
             const guitar = {
@@ -63,23 +28,28 @@
                 backWood: document.getElementById('backWood').value,
                 topWood: document.getElementById('topWood').value,
             };
-            let request = {
+
+            fetch('http://localhost:8080/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(guitar),
-            };
-            let host = "http://localhost:8080";
-            let message = "";
-            let response = fetch(host + "/add", request);
-            if(response.status == 200){
-                message = 'The guitar was added to the system'
-            }else{
-                console.log(response);
-                message = 'Something went wrong. Please try again or contact the customer support team'; 
-            }
-            alert(message);
+            })
+            .then(response => {
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('The guitar was added to the system');
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+                alert('Something went wrong. Please try again or contact the customer support team');
+            })
         }
     </script>
 </body>
