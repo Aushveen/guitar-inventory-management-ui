@@ -26,33 +26,43 @@
     </table>
 
     <script>
-        const guitars = [
-            { serialNumber: "SN1", price: 1000, builder: "Fender", model: "Model1", type: "Electric", backWood: "Maple", topWood: "Maple" },
-            { serialNumber: "SN2", price: 1500, builder: "Martin", model: "Model2", type: "Acoustic", backWood: "Mahogany", topWood: "Cedar" },
-            { serialNumber: "SN3", price: 1200, builder: "Gibson", model: "Model3", type: "Electric", backWood: "Alder", topWood: "Alder" },
-            { serialNumber: "SN4", price: 1100, builder: "Yamaha", model: "Model4", type: "Acoustic", backWood: "Rosewood", topWood: "Spruce" },
-            { serialNumber: "SN5", price: 1300, builder: "PRS", model: "Model5", type: "Electric", backWood: "Mahogany", topWood: "Maple" },
-        ];
+        async function fetchGuitars() {
+            const builder = document.getElementById('searchBuilder').value;
+            const model = document.getElementById('searchModel').value;
+            const type = document.getElementById('searchType').value;
+            const backWood = document.getElementById('searchBackWood').value;
+            const topWood = document.getElementById('searchTopWood').value;
 
-        function searchGuitar() {
-            const builder = document.getElementById('searchBuilder').value.toLowerCase();
-            const model = document.getElementById('searchModel').value.toLowerCase();
-            const type = document.getElementById('searchType').value.toLowerCase();
-            const backWood = document.getElementById('searchBackWood').value.toLowerCase();
-            const topWood = document.getElementById('searchTopWood').value.toLowerCase();
+            // Construct the query string
+            const queryParams = new URLSearchParams({
+                builder, model, type, backWood, topWood
+            });
+
+            try {
+                const response = await fetch(`/search?${queryParams}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const guitars = await response.json();
+                return guitars;
+            } catch (error) {
+                console.error('Could not fetch guitars:', error);
+                return [];
+            }
+        }
+
+        async function searchGuitar() {
+            const guitars = await fetchGuitars();
 
             const resultsTable = document.getElementById('resultsTable');
             resultsTable.innerHTML = resultsTable.rows[0].outerHTML; // Clear previous search results
 
-            const filteredGuitars = guitars.filter(guitar =>
-                (builder === "" || guitar.builder.toLowerCase() === builder) &&
-                (model === "" || guitar.model.toLowerCase() === model) &&
-                (type === "" || guitar.type.toLowerCase() === type) &&
-                (backWood === "" || guitar.backWood.toLowerCase() === backWood) &&
-                (topWood === "" || guitar.topWood.toLowerCase() === topWood)
-            ).slice(0, 10); // Limit to 10 results
-
-            filteredGuitars.forEach(guitar => {
+            guitars.forEach(guitar => {
                 const row = resultsTable.insertRow(-1);
                 Object.values(guitar).forEach(text => {
                     const cell = row.insertCell(-1);
