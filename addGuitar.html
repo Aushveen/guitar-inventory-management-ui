@@ -53,7 +53,7 @@
     </form>
     <button onclick="window.location.href='index.html'">Back to Home</button>
     <script>
-        async function addGuitar() {
+        function addGuitar() {
             const guitar = {
                 serialNumber: document.getElementById('serialNumber').value,
                 price: document.getElementById('price').value,
@@ -72,7 +72,7 @@
             };
             let host = "http://localhost:8080";
             let message = "";
-            let response = await fetch(host + "/add", request);
+            let response = fetch(host + "/add", request);
             if(response.status == 200){
                 message = 'The guitar was added to the system'
             }else{
