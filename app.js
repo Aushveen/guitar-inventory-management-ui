@@ -25,7 +25,7 @@ function handleSignup(event) {
         email: email
     };
 
-    fetch('http://localhost:8080/signup', {
+    fetch('https://guitar-latest-ef2a.onrender.com/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function handleSignin(event) {
         password: password
     };
 
-    fetch('http://localhost:8080/signin', {
+    fetch('https://guitar-latest-ef2a.onrender.com/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
